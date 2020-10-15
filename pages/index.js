@@ -1,65 +1,87 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { Card, Button } from "antd";
+import Head from "next/head";
+import NextLink from "next/link";
+import { useState } from "react";
+import useSWR from "swr";
 
-export default function Home() {
+import Layout from "../src/components/Layout";
+import styles from "../styles/Home.module.css";
+import styled from "styled-components";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+const LH = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 100vh;
+`;
+
+const Home = () => {
+  const { data, error } = useSWR(
+    "http://fake-hotel-api.herokuapp.com/api/hotels?count=10",
+    fetcher
+  );
+
+  if (error)
+    return (
+      <Layout>
+        <div>Failed to load</div>
+      </Layout>
+    );
+  if (!data)
+    return (
+      <Layout>
+        <div>Loading...</div>
+      </Layout>
+    );
+  console.log("Data", data);
+
+  const retrievedHotels = data.map((item) => (
+    <Card
+      title={item.name}
+      style={{ maxWidth: 200, width: 200, margin: 30, height: 400 }}
+      key={item.id}
+      cover={
+        <img
+          alt="example"
+          src="https://source.unsplash.com/200x300/?hotel"
+          style={{
+            margin: "2rem 4rem",
+            width: "auto",
+            maxWidth: "200px",
+            justifyContent: "center",
+            display: "flex",
+            height: 200,
+            maxHeight: 200,
+          }}
+        />
+      }
+    >
+      <Button>
+        <NextLink href="hotel/[id]" as={`hotel/${item.id}`}>
+          Reviews
+        </NextLink>
+      </Button>
+    </Card>
+  ));
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout>
+      <div className={styles.container}>
+        <Head>
+          <title>Hotels</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <LH className={styles.main}>
+          <div className="hotel">{retrievedHotels}</div>
+        </LH>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <footer className={styles.footer}>Made by me</footer>
+      </div>
+    </Layout>
+  );
+};
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+export default Home;

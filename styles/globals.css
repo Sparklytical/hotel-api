@@ -14,3 +14,127 @@ a {
 * {
   box-sizing: border-box;
 }
+/* button {
+  width: 200px;
+  height: 50px;
+  border-radius: 15px;
+  border: none;
+} */
+
+.True {
+  background-color: rgb(142, 247, 107);
+}
+
+.False {
+  background-color: rgb(224, 74, 74);
+  color: white;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+
+.otro-blockquote {
+  font-size: 1.4em;
+  font-family: Open Sans;
+  font-style: italic;
+  color: #fff;
+  padding: 1.2em 30px 1.2em 75px;
+  border-left: 8px solid rgb(15, 157, 218);
+  line-height: 1.6;
+  position: relative;
+  background: #ededed;
+}
+
+.green {
+  background-color: #51a16d;
+}
+.red {
+  background-color: tomato;
+}
+
+.otro-blockquote::before {
+  font-family: Arial;
+  content: "\201C";
+  color: #78c0a8;
+  font-size: 4em;
+  position: absolute;
+  left: 10px;
+  top: -10px;
+}
+
+.otro-blockquote::after {
+  content: "";
+}
+
+.otro-blockquote span {
+  display: block;
+  color: #333333;
+  font-style: normal;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.otro-blockquote span button {
+  margin-left: 3rem;
+}
+
+.reviews-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 15rem;
+  align-content: center;
+  align-items: center;
+}
+
+.review-heading {
+  font-size: 2.5rem;
+}
+
+.ant-card-head-title {
+  text-transform: capitalize;
+}
+
+.hotel {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+/* .ant-layout {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex: auto;
+  flex: auto;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  min-height: 0;
+  background: #f0f2f5;
+} */
+
+/* .ant-card {
+  border: 1px solid;
+} */
+
+/* .ant-card-head {
+  min-height: 48px;
+  margin-bottom: -1px;
+  padding: 0 24px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 500;
+  font-size: 16px;
+  background: transparent;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 2px 2px 0 0;
+}
+.ant-card-bordered {
+  border: 1px solid #f0f0f0;
+  background-color: white;
+} */
+.ant-card-bordered .ant-card-cover {
+  display: flex;
+  justify-content: center;
+}
+.ant-card-body {
+  justify-content: center;
+  display: flex;
+}
